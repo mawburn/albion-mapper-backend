@@ -13,6 +13,8 @@ import (
 	"github.com/tebro/albion-mapper-backend/db"
 
 	"github.com/gorilla/mux"
+
+	"github.com/rs/cors"
 )
 
 type apiPortal struct {
@@ -173,7 +175,14 @@ func StartServer() error {
 	router := mux.NewRouter()
 	setupRoutes(router)
 
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
+
 	log.Println("Server starting on port 8080")
-	err := http.ListenAndServe(":8080", router)
+	err := http.ListenAndServe(":8080", handler)
 	return err
 }
