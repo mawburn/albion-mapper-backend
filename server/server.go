@@ -176,8 +176,10 @@ func StartServer() error {
 	setupRoutes(router)
 
 	c := cors.New(cors.Options{
+		AllowedHeaders:   []string{"X-Requested-With"},
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
+		AllowedMethods:   []string{"GET", "HEAD", "POST", "PUT", "OPTIONS"},
 	})
 
 	handler := c.Handler(router)
