@@ -26,7 +26,7 @@ type apiPortal struct {
 }
 
 var password = os.Getenv("AUTH_PASSWORD")
-var publicRead = os.Getenv("PUBLIC_READ") == "true"
+var publicRead = true
 
 func isAuth(r *http.Request) bool {
 	if publicRead && r.Method == "GET" {
